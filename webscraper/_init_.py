@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as soup
-
+from pdfreader import SimplePDFViewer
 
 req = requests.get("https://exams.keralauniversity.ac.in/Login/check3")
 
@@ -26,3 +26,8 @@ for result in results:
     print(
         f"Date: {result['date']}, Details: {result['details']}, Link: {result['link']}"
     )
+    pdf_data = requests.get(result["link"]).content
+    viewer = SimplePDFViewer(pdf_data)
+    viewer.render()
+
+    break
